@@ -59,7 +59,7 @@ void sort_by_area(triangle* tr, int n) {
         {
             int area2, p2;
             p2=(tr[j].a+tr[j].b+tr[j].c)/2;
-            area1=sqrt(p2*(p2-tr[j].a)*(p2-tr[j].b)*(p2-tr[j].c));
+            area2=sqrt(p2*(p2-tr[j].a)*(p2-tr[j].b)*(p2-tr[j].c));
 
             if(area2<area1)
             {
