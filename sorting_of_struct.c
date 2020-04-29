@@ -50,20 +50,28 @@ void sort_by_area(triangle* tr, int n) {
 	/**
 	* Sort an array a of the length n
 	*/
+    int area[n];
+    float p;
     for(int i=0;i<n;i++)
     {
-        int area1, p1;
-        p1=(tr[i].a+tr[i].b+tr[i].c)/2;
-        area1=sqrt(p1*(p1-tr[i].a)*(p1-tr[i].b)*(p1-tr[i].c));
+        p=(tr[i].a+tr[i].b+tr[i].c)/2.0;
+        //use 2.0 compulsary int/int gives int, int/float gives float
+        area[i]=(p*(p-tr[i].a)*(p-tr[i].b)*(p-tr[i].c));
+        //formula without sqrt as areas are different guarenteed 
+        //because sqrt dosent work well with float values
+    }
+
+    for(int i=0;i<n;i++)
+    {
         for(int j=i+1;j<n;j++)
         {
-            int area2, p2;
-            p2=(tr[j].a+tr[j].b+tr[j].c)/2;
-            area2=sqrt(p2*(p2-tr[j].a)*(p2-tr[j].b)*(p2-tr[j].c));
-
-            if(area2<area1)
+            if(area[j]<area[i])
             {
                 int temp;
+
+                temp=area[i];
+                area[i]=area[j];
+                area[j]=temp;
 
                 temp=tr[i].a;
                 tr[i].a=tr[j].a;
