@@ -1,6 +1,6 @@
 // complexity => O(n)
 
-class Solution {
+class Solution1 {
     public int maxArea(int[] height) {
         
         int area = 0;
