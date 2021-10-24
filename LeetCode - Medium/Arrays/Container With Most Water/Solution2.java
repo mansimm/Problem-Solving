@@ -1,7 +1,7 @@
 //Brute force-
 //time limit exceeded
 
-class Solution {
+class Solution2 {
     public int maxArea(int[] height) {
         
         int area = 0;
