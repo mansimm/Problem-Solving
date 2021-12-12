@@ -1,0 +1,36 @@
+Insert-
+
+1.insertOne -
+
+	> db.employee.insertOne({
+	... _id:1,
+	... name:"Nemo",
+	... salary:40000,
+	... experience:[
+	... {
+	... role:"Tech Analyst",
+	... years:1
+	... }
+	... ]
+	... });
+	{ "acknowledged" : true, "insertedId" : 1 }
+	> db.employee.find();
+	{ "_id" : 1, "name" : "Nemo", "salary" : 40000, "experience" : [ { "role" : "Tech Analyst", "years" : 1 } ] }
+	> 
+
+2.insertMany -
+
+	> db.employee.insertMany([
+		{ _id:2, name:"Danny", salary:50000, experience:[ { role:"Tech Lead", years:2 } ] },
+		{_id:3,name:"Veeny",salary:50000,experience:[{role:"Tech Lead", year:1}]}
+		]);
+	{ "acknowledged" : true, "insertedIds" : [ 2, 3 ] }
+	> db.employee.find();
+	{ "_id" : 1, "name" : "Nemo", "salary" : 40000, "experience" : [ { "role" : "Tech Analyst", "years" : 1 } ] }
+	{ "_id" : 2, "name" : "Danny", "salary" : 50000, "experience" : [ { "role" : "Tech Lead", "years" : 2 } ] }
+	{ "_id" : 3, "name" : "Veeny", "salary" : 50000, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	> 
+
+3. insert - can act as both insertOne and insertMany
+	insert - pass single document , act as a insertOne'
+	insert - pass Array of objects/document , act as a insertMany
