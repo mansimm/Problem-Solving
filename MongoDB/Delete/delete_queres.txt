@@ -1,0 +1,20 @@
+Delete
+
+1.deleteOne()-
+
+db.employee.deleteOne({name:"Nemo"});
+
+	> db.employee.find({},{name:1});
+	{ "_id" : 1, "name" : "Nemo" }
+	{ "_id" : 2, "name" : "Danny" }
+	{ "_id" : 3, "name" : "Veeny" }
+	> db.employee.deleteOne({name:"Danny"});
+	{ "acknowledged" : true, "deletedCount" : 1 }
+	> db.employee.find({},{name:1});
+	{ "_id" : 1, "name" : "Nemo" }
+	{ "_id" : 3, "name" : "Veeny" }
+
+2.deleteMany()- use to delete many documents matching condition
+
+db.employee.deleteMany({name:"Nemo"});
+
