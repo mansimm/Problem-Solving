@@ -1,0 +1,69 @@
+
+1.Start server - 
+	>mongo db
+
+	> show databases;
+	UTA_Enrollment  0.000GB
+	admin           0.000GB
+	config          0.000GB
+	local           0.000GB
+	practice_db     0.000GB
+
+	> use practice_db;
+	switched to db practice_db
+
+	> show collections;
+	Students
+
+	> db.Students.find();
+	{ "_id" : 1, "name" : "many" }
+	{ "_id" : ObjectId("615f11800159310b33c1d992"), "name" : "jonny", "marks" : 80 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d993"), "name" : "kitty", "grade" : 2 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d994"), "name" : "maya", "marks" : 80 }
+	>
+
+2.create collection - db.createCollection('Collection_Name');
+
+	> db.createCollection("employee");
+	{ "ok" : 1 }
+	
+	> 
+	> show collections;
+	Students
+	employee
+	> 
+
+3.show databases
+
+	> db;
+	practice_db
+
+4. drop collection -
+
+	> db.employee.drop();
+	true
+	> show collections;
+	Students
+	> 
+
+5.to create databse - use Database_Name
+
+	> use testdb;
+	switched to db testdb
+	> db;
+	testdb
+
+
+6. drop database - use database_name + db.dropDatabase()
+
+	> db;
+	testdb
+	> db.dropDatabase();
+	{ "ok" : 1 }
+	> show dbs;
+	UTA_Enrollment  0.000GB
+	admin           0.000GB
+	config          0.000GB
+	local           0.000GB
+	practice_db     0.000GB
+	> 
