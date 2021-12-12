@@ -1,0 +1,395 @@
+update with 
+
+$upsert - adds new document with given value if no matching record found for given condition
+	> db.Students.update({"marks":{$gt:85}},{$set:{"marks":90}},{upsert:true});
+	WriteResult({
+		"nMatched" : 0,
+		"nUpserted" : 1,
+		"nModified" : 0,
+		"_id" : ObjectId("61b4b9fd4f1f81a609013d03")
+	})
+	> db.Students.find();
+	{ "_id" : 1, "name" : "many" }
+	{ "_id" : ObjectId("615f11800159310b33c1d992"), "name" : "jonny", "marks" : 85, "grade" : 1 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d993"), "name" : "kitty", "grade" : 2 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d994"), "name" : "maya", "marks" : 85, "grade" : 1 }
+	{ "_id" : ObjectId("61b4b3846184119a1be40d72"), "name" : "Dolly", "marks" : 80, "grade" : 3 }
+	{ "_id" : ObjectId("61b4b9fd4f1f81a609013d03"), "marks" : 90 }
+	> 
+
+
+
+$inc - to increment value , use -value to decrement
+
+	> db.Students.updateMany({marks:{$gt:50}},{$inc:{"marks":1}});
+	{ "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
+	> db.Students.find();
+	{ "_id" : 1, "name" : "many" }
+	{ "_id" : ObjectId("615f11800159310b33c1d992"), "name" : "jonny", "marks" : 86, "grade" : 1 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d993"), "name" : "kitty", "grade" : 2 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d994"), "name" : "maya", "marks" : 86, "grade" : 1 }
+	{ "_id" : ObjectId("61b4b3846184119a1be40d72"), "name" : "Dolly", "marks" : 81, "grade" : 3 }
+	{ "_id" : ObjectId("61b4b9fd4f1f81a609013d03"), "marks" : 91 }
+	> 
+
+	> db.Students.updateMany({marks:{$gt:50}},{$inc:{"marks":-1}});
+	{ "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
+	> db.Students.find();
+	{ "_id" : 1, "name" : "many" }
+	{ "_id" : ObjectId("615f11800159310b33c1d992"), "name" : "jonny", "marks" : 85, "grade" : 1 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d993"), "name" : "kitty", "grade" : 2 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d994"), "name" : "maya", "marks" : 85, "grade" : 1 }
+	{ "_id" : ObjectId("61b4b3846184119a1be40d72"), "name" : "Dolly", "marks" : 80, "grade" : 3 }
+	{ "_id" : ObjectId("61b4b9fd4f1f81a609013d03"), "marks" : 90 }
+	> 
+
+update with $mul - increment marks by 10%
+
+	 db.Students.updateMany({marks:{$gt:50}},{$mul:{"marks":1.1}});
+	{ "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
+	> db.Students.find();
+	{ "_id" : 1, "name" : "many" }
+	{ "_id" : ObjectId("615f11800159310b33c1d992"), "name" : "jonny", "marks" : 93.50000000000001, "grade" : 1 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d993"), "name" : "kitty", "grade" : 2 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d994"), "name" : "maya", "marks" : 93.50000000000001, "grade" : 1 }
+	{ "_id" : ObjectId("61b4b3846184119a1be40d72"), "name" : "Dolly", "marks" : 88, "grade" : 3 }
+	{ "_id" : ObjectId("61b4b9fd4f1f81a609013d03"), "marks" : 99.00000000000001 }
+	> 
+
+$max - update field to max value if it is less than max
+
+	> db.Students.find({},{_id:0});
+	{ "name" : "many" }
+	{ "name" : "jonny", "marks" : 93.50000000000001, "grade" : 1 }
+	{ "name" : "kitty", "grade" : 2 }
+	{ "name" : "maya", "marks" : 93.50000000000001, "grade" : 1 }
+	{ "name" : "Dolly", "marks" : 88, "grade" : 3 }
+	{ "marks" : 99.00000000000001 }
+	> db.Students.updateMany({},{$max:{"grade":1}});
+	{ "acknowledged" : true, "matchedCount" : 6, "modifiedCount" : 2 }
+	> db.Students.find({},{_id:0});
+	{ "name" : "many", "grade" : 1 }
+	{ "name" : "jonny", "marks" : 93.50000000000001, "grade" : 1 }
+	{ "name" : "kitty", "grade" : 2 }
+	{ "name" : "maya", "marks" : 93.50000000000001, "grade" : 1 }
+	{ "name" : "Dolly", "marks" : 88, "grade" : 3 }
+	{ "marks" : 99.00000000000001, "grade" : 1 }
+	> 
+
+$min - sets marks to minimum 90 if it is greater than 90
+
+	> 
+	> db.Students.updateMany({},{$min:{"marks":90}});
+	{ "acknowledged" : true, "matchedCount" : 6, "modifiedCount" : 5 }
+	> db.Students.find({},{_id:0});
+	{ "name" : "many", "grade" : 1, "marks" : 90 }
+	{ "name" : "jonny", "marks" : 90, "grade" : 1 }
+	{ "name" : "kitty", "grade" : 2, "marks" : 90 }
+	{ "name" : "maya", "marks" : 90, "grade" : 1 }
+	{ "name" : "Dolly", "marks" : 88, "grade" : 3 }
+	{ "marks" : 90, "grade" : 1 }
+	> ^C
+
+$unset - to remove one or more fields
+
+	> db.Students.find({},{_id:0});
+	{ "name" : "many", "grade" : 1, "marks" : 90 }
+	{ "name" : "jonny", "marks" : 90, "grade" : 1 }
+	{ "name" : "kitty", "grade" : 2, "marks" : 90 }
+	{ "name" : "maya", "marks" : 90, "grade" : 1 }
+	{ "name" : "Dolly", "marks" : 88, "grade" : 3 }
+	{ "marks" : 90, "grade" : 1 }
+	> db.Students.updateOne({"name":"Dolly"},{$unset:{"grade":""}})
+	{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+	> db.Students.find({},{_id:0});
+	{ "name" : "many", "grade" : 1, "marks" : 90 }
+	{ "name" : "jonny", "marks" : 90, "grade" : 1 }
+	{ "name" : "kitty", "grade" : 2, "marks" : 90 }
+	{ "name" : "maya", "marks" : 90, "grade" : 1 }
+	{ "name" : "Dolly", "marks" : 88 }
+	{ "marks" : 90, "grade" : 1 }
+	> 
+
+$push - to push obj in array
+	it pushes obj even if same obj already present there
+
+db.employee.updateOne({_id:1},
+	{$push:
+		{experience:	{role:"System Engineer",year:2}	}
+	});
+
+	> db.employee.updateOne({_id:1},
+	... {$push:
+	... {experience:{role:"System Engineer",year:2}}
+	... });
+	{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+	> db.employee.find({},{experience:1});
+	{ "_id" : 1, "experience" : [ { "role" : "Tech Analyst", "years" : 1 }, { "role" : "System Engineer", "year" : 2 } ] }
+	{ "_id" : 2, "experience" : [ { "role" : "Tech Lead", "years" : 2 } ] }
+	{ "_id" : 3, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	> 
+
+$addToSet - to push obj in array,
+	it does not pushes obj if same obj already present there
+
+	db.employee.updateOne({_id:1},
+	{$addToSet:
+		{experience:	{role:"System Engineer",year:2}	}
+	});
+
+
+	> db.employee.updateOne({_id:1},
+	... {$addToSet:
+	... {experience:{role:"System Engineer",year:2}}
+	... });
+	{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 0 }
+	> db.employee.find({},{experience:1});
+	{ "_id" : 1, "experience" : [ { "role" : "Tech Analyst", "years" : 1 }, { "role" : "System Engineer", "year" : 2 } ] }
+	{ "_id" : 2, "experience" : [ { "role" : "Tech Lead", "years" : 2 } ] }
+	{ "_id" : 3, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	> 
+
+	> db.employee.updateOne({_id:2}, {$addToSet: {experience:{role:"System Engineer",year:2}} });
+	{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+	> db.employee.find({},{experience:1});
+	{ "_id" : 1, "experience" : [ { "role" : "Tech Analyst", "years" : 1 }, { "role" : "System Engineer", "year" : 2 } ] }
+	{ "_id" : 2, "experience" : [ { "role" : "Tech Lead", "years" : 2 }, { "role" : "System Engineer", "year" : 2 } ] }
+	{ "_id" : 3, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	> 
+
+$each - use with $push and $addToSet to push multiple obj in array
+	it adds each obj from array argument to array field
+
+	db.employee.updateOne({_id:1},
+	{$addToSet:
+		{experience:  {$each:[
+					{role:"System Engineer Trainnee",year:0.5},
+					{role:"System Engineer",year:1}
+		]}
+	}
+	});
+
+
+	> db.employee.updateOne({_id:1},
+	... {$addToSet:
+	... {experience:  {$each:[
+	... {role:"System Engineer Trainnee",year:0.5},
+	... {role:"System Engineer",year:1}
+	... ]}
+	... }
+	... });
+	{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+	> db.employee.find({},{experience:1});
+	{ "_id" : 1, "experience" : [ { "role" : "Tech Analyst", "years" : 1 }, 
+					{ "role" : "System Engineer", "year" : 2 }, 
+					{ "role" : "System Engineer Trainnee", "year" : 0.5 }, 
+					{ "role" : "System Engineer", "year" : 1 } 
+				    ] }
+	{ "_id" : 2, "experience" : [ { "role" : "Tech Lead", "years" : 2 }, { "role" : "System Engineer", "year" : 2 } ] }
+	{ "_id" : 3, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	> 
+
+
+
+	> db.employee.updateOne({_id:1},
+	... {$addToSet:
+	... {experience:  {$each:[
+	... {role:"System Engineer Trainnee",year:0.5},
+	... {role:"System Engineer",year:1}
+	... ]}
+	... }
+	... });
+	{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 0 }
+	> db.employee.find({},{experience:1});
+	{ "_id" : 1, "experience" : [ { "role" : "Tech Analyst", "years" : 1 },
+					{ "role" : "System Engineer", "year" : 2 }, 
+					{ "role" : "System Engineer Trainnee", "year" : 0.5 }, 
+					{ "role" : "System Engineer", "year" : 1 } 
+				    ] }
+	{ "_id" : 2, "experience" : [ { "role" : "Tech Lead", "years" : 2 }, { "role" : "System Engineer", "year" : 2 } ] }
+	{ "_id" : 3, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	> 
+
+
+$position - use to add obj in array at specific position/index
+		Note : $position cannot be use without $each
+
+
+	db.employee.update({_id:2},
+			{$push:
+				{experience:  {$each:[
+						{role:"System Engineer Trainnee",year:0.5}
+						     ],
+						$position: 0
+					      }
+			        }
+	                  }
+		     );
+--- above query with updateOne and $addToSet didn't worked why ?
+
+
+
+
+	> db.employee.update({_id:2},
+	... {$push:
+	... {experience:  {$each:[
+	... {role:"System Engineer Trainnee",year:0.5}
+	...      ],
+	... $position: 0
+	...       }
+	...         }
+	...                   }
+	...      );
+	WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+	> db.employee.find({},{experience:1});
+	{ "_id" : 1, "experience" : [ { "role" : "Tech Analyst", "years" : 1 }, 
+					{ "role" : "System Engineer", "year" : 2 }, 
+					{ "role" : "System Engineer Trainnee", "year" : 0.5 }, 
+					{ "role" : "System Engineer", "year" : 1 } ] }
+	{ "_id" : 2, "experience" : [ { "role" : "System Engineer Trainnee", "year" : 0.5 }, 
+					{ "role" : "Tech Lead", "years" : 2 }, 
+					{ "role" : "System Engineer", "year" : 2 } ] }
+	{ "_id" : 3, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	> 
+
+
+$ - update nested documents
+
+	db.employee.updateOne(
+		{$and : [
+			{_id:1},
+			{"experience.role": "System Engineer"}
+		]},
+		{$set:
+			{"experience.$.year":3} ---if we miss $ it will update all experience.year
+		}
+	);
+
+	> db.employee.updateOne(
+	... {$and : [
+	... {_id:1},
+	... {"experience.role": "System Engineer"}
+	... ]},
+	... {$set:
+	... {"experience.$.year":3}
+	... }
+	... );
+
+	{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+	> db.employee.find({},{experience:1});
+	{ "_id" : 1, "experience" : [ { "role" : "Tech Analyst", "years" : 1 }, 
+					{ "role" : "System Engineer", "year" : 3 }, 
+					{ "role" : "System Engineer Trainnee", "year" : 0.5 }, 
+					{ "role" : "System Engineer", "year" : 1 } 
+				    ] }
+	{ "_id" : 2, "experience" : [ { "role" : "System Engineer Trainnee", "year" : 0.5 }, 
+					{ "role" : "Tech Lead", "years" : 2 }, 
+					{ "role" : "System Engineer", "year" : 2 } 
+				    ] }
+	{ "_id" : 3, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	> 
+
+$pull - use to remove single value from array
+
+db.employee.updateOne(
+{_id:1},
+{$pull: 
+	{experience:
+		{ "role" : "System Engineer", "year" : 3 }	
+	}
+}
+);
+
+	> db.employee.updateOne(
+	... {_id:1},
+	... {$pull: 
+	... {experience:
+	... { "role" : "System Engineer", "year" : 3 }
+	... }
+	... }
+	... );
+	{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+	> db.employee.find({},{experience:1});
+	{ "_id" : 1, "experience" : [ { "role" : "Tech Analyst", "years" : 1 }, 
+					{ "role" : "System Engineer Trainnee", "year" : 0.5 }, 
+					{ "role" : "System Engineer", "year" : 1 } ] }
+	{ "_id" : 2, "experience" : [ { "role" : "System Engineer Trainnee", "year" : 0.5 }, 
+					{ "role" : "Tech Lead", "years" : 2 }, 
+					{ "role" : "System Engineer", "year" : 2 } ] }
+	{ "_id" : 3, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	> 
+
+$pullAll - use to remove multiple values from array
+
+	db.employee.updateOne(
+	{_id:1},
+	{$pullAll: 
+		{experience:[
+			{ "role" : "System Engineer", "year" : 3 },
+			{ "role" : "Tech Analyst", "years" : 1 },
+			{ "role" : "System Engineer", "year" : 1 }
+			]	
+		}
+	}
+	);
+
+	> db.employee.updateOne(
+	... {_id:1},
+	... {$pullAll: 
+	... {experience:[
+	... { "role" : "System Engineer", "year" : 3 },
+	... { "role" : "Tech Analyst", "years" : 1 },
+	... { "role" : "System Engineer", "year" : 1 }
+	... ]
+	... }
+	... }
+	... );
+	{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+	> db.employee.find({},{experience:1});
+	{ "_id" : 1, "experience" : [ { "role" : "System Engineer Trainnee", "year" : 0.5 } ] }
+	{ "_id" : 2, "experience" : [ { "role" : "System Engineer Trainnee", "year" : 0.5 }, 
+					{ "role" : "Tech Lead", "years" : 2 }, 
+					{ "role" : "System Engineer", "year" : 2 } ] }
+	{ "_id" : 3, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	> 
+
+$pop - use to remove first(field:-1) or last (field:1) value from array
+
+db.employee.updateOne(
+	{_id:2},
+	{$pop:
+		{experience: 1}
+	}
+);
+
+
+	 
+	> db.employee.updateOne(
+	... {_id:2},
+	... {$pop:
+	... {experience: -1} -----removes first element
+	... }
+	... );
+	{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+	> db.employee.find({},{experience:1});
+	{ "_id" : 1, "experience" : [ { "role" : "System Engineer Trainnee", "year" : 0.5 } ] }
+	{ "_id" : 2, "experience" : [ { "role" : "Tech Lead", "years" : 2 }, { "role" : "System Engineer", "year" : 2 } ] }
+	{ "_id" : 3, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	> 
+
+
+	> 
+	> db.employee.updateOne(
+	... {_id:2},
+	... {$pop:
+	... {experience: 1}	-----removes last element
+	... }
+	... );
+	{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+	> db.employee.find({},{experience:1});
+	{ "_id" : 1, "experience" : [ { "role" : "System Engineer Trainnee", "year" : 0.5 } ] }
+	{ "_id" : 2, "experience" : [ { "role" : "System Engineer", "year" : 2 } ] }
+	{ "_id" : 3, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	> 
+
