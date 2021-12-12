@@ -1,0 +1,48 @@
+Update - 
+
+1.updateOne()-
+
+	> db.Students.updateOne({"marks":80},{$set:{"marks":90}});
+	{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+	> db.Students.find();
+	{ "_id" : 1, "name" : "many" }
+	{ "_id" : ObjectId("615f11800159310b33c1d992"), "name" : "jonny", "marks" : 90 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d993"), "name" : "kitty", "grade" : 2 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d994"), "name" : "maya", "marks" : 90 }
+	{ "_id" : ObjectId("61b4b3846184119a1be40d72"), "name" : "Dolly", "marks" : 80, "grade" : 3 }
+
+2.updateMany()-
+
+	> db.Students.updateMany({"marks":{$gt:80}},{$set:{"grade":1}});
+	{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
+	> db.Students.find();
+	{ "_id" : 1, "name" : "many" }
+	{ "_id" : ObjectId("615f11800159310b33c1d992"), "name" : "jonny", "marks" : 90, "grade" : 1 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d993"), "name" : "kitty", "grade" : 2 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d994"), "name" : "maya", "marks" : 90, "grade" : 1 }
+	{ "_id" : ObjectId("61b4b3846184119a1be40d72"), "name" : "Dolly", "marks" : 80, "grade" : 3 }
+
+3.update()- use as a alternative to updateOne & updateMany 
+	by default act as updateOne
+	to act as updateMany need to pass third argument as multi ie.{multi:true}
+	update/updateOne/updateMany command adds new field if it is not present for updation
+
+	> db.Students.update({"marks":90},{$set:{"marks":89}});
+	WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+	> db.Students.find();
+	{ "_id" : 1, "name" : "many" }
+	{ "_id" : ObjectId("615f11800159310b33c1d992"), "name" : "jonny", "marks" : 89, "grade" : 1 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d993"), "name" : "kitty", "grade" : 2 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d994"), "name" : "maya", "marks" : 90, "grade" : 1 }
+	{ "_id" : ObjectId("61b4b3846184119a1be40d72"), "name" : "Dolly", "marks" : 80, "grade" : 3 }
+	> 
+
+	> db.Students.update({"marks":{$gt:80}},{$set:{"marks":85}},{multi:true});
+	WriteResult({ "nMatched" : 2, "nUpserted" : 0, "nModified" : 2 })
+	> db.Students.find();
+	{ "_id" : 1, "name" : "many" }
+	{ "_id" : ObjectId("615f11800159310b33c1d992"), "name" : "jonny", "marks" : 85, "grade" : 1 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d993"), "name" : "kitty", "grade" : 2 }
+	{ "_id" : ObjectId("615f11bb0159310b33c1d994"), "name" : "maya", "marks" : 85, "grade" : 1 }
+	{ "_id" : ObjectId("61b4b3846184119a1be40d72"), "name" : "Dolly", "marks" : 80, "grade" : 3 }
+	> 
