@@ -1,0 +1,30 @@
+
+1.countDocumets()
+
+	 db.employee.find({});
+	{ "_id" : 1, "name" : "Nemo", "salary" : 40000, "experience" : [ { "role" : "System Engineer Trainnee", "year" : 0.5 } ] }
+	{ "_id" : 3, "name" : "Veeny", "salary" : 50000, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	{ "_id" : 4, "name" : "Kuku", "salary" : 25000, "experience" : [ { "role" : "System Engineer Trainee", "year" : 1 }, { "role" : "System Engineer", "year" : 1 } ] }
+	{ "_id" : 5, "name" : "bunny", "salary" : 25000, "experience" : [ { "role" : "System Engineer Trainee", "year" : 1 }, { "role" : "System Engineer", "year" : 1 } ] }
+	> db.employee.countDocuments({});
+	4
+	> 
+
+	db.employee.countDocuments({"experience.role":"System Engineer Trainee"});
+
+	> db.employee.countDocuments({"experience.role":"System Engineer Trainee"});
+	2
+	> 
+	db.employee.countDocuments({"experience.role":"System Engineer Trainee"},{skip:1});
+
+	> 
+	> db.employee.countDocuments({"experience.role":"System Engineer Trainee"},{skip:1});
+	1
+
+	> db.employee.countDocuments({"experience.role":"System Engineer Trainee"},{skip:1,limit:5});
+	1
+	> 
+	> db.employee.countDocuments({},{skip:1,limit:5});
+	3
+	> db.employee.countDocuments({},{skip:1,limit:2});
+	2
