@@ -1,0 +1,23 @@
+1. $project - use to add projection(as that in find) in aggregation pipeline
+
+	db.employee.aggregate([
+	{$match:{name:{$exists:true}}},
+	{$project:{name:1}}
+	]);
+
+	> db.employee.aggregate([
+	... {$match:{name:{$exists:true}}},
+	... {$project:{name:1}}
+	... ]);
+	{ "_id" : 1, "name" : "Nemo" }
+	{ "_id" : 3, "name" : "Veeny" }
+	{ "_id" : 4, "name" : "Kuku" }
+	{ "_id" : 5, "name" : "bunny" }
+	> 
+
+	> db.employee.aggregate([ {$project:{name:1}} ]);
+	{ "_id" : 1, "name" : "Nemo" }
+	{ "_id" : 3, "name" : "Veeny" }
+	{ "_id" : 4, "name" : "Kuku" }
+	{ "_id" : 5, "name" : "bunny" }
+	> 
