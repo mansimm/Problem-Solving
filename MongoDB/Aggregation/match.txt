@@ -1,0 +1,15 @@
+1. $match - use to filter documents with aggregation fun
+		it is staging operator
+
+	db.employee.aggregate([
+	{$match:{name:{$exists:true}}}
+	]);
+
+	> db.employee.aggregate([
+	... {$match:{name:{$exists:true}}}
+	... ]);
+	{ "_id" : 1, "name" : "Nemo", "salary" : 40000, "experience" : [ { "role" : "System Engineer Trainnee", "year" : 0.5 } ] }
+	{ "_id" : 3, "name" : "Veeny", "salary" : 50000, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ] }
+	{ "_id" : 4, "name" : "Kuku", "salary" : 25000, "experience" : [ { "role" : "System Engineer Trainee", "year" : 1 }, { "role" : "System Engineer", "year" : 1 } ] }
+	{ "_id" : 5, "name" : "bunny", "salary" : 25000, "experience" : [ { "role" : "System Engineer Trainee", "year" : 1 }, { "role" : "System Engineer", "year" : 1 } ] }
+	> 
