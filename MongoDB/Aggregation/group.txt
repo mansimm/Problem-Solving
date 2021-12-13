@@ -1,0 +1,45 @@
+1. $group -
+
+	db.employee.aggregate([
+		{$group:{_id:"$salary"}} -- $salary - $ is imp else agg wont happen,it takes value of field
+	]);
+
+	> db.employee.aggregate([
+	... {$group:{_id:"salary"}}
+	... ]);
+	{ "_id" : "salary" }
+	> db.employee.aggregate([ {$group:{_id:"$salary"}} ]);
+	{ "_id" : 50000 }
+	{ "_id" : 25000 }
+	{ "_id" : 40000 }
+	> 
+
+	> db.employee.aggregate([ {$match:{"name":"Veeny"}},{$group:{_id:"$salary"}} ]);
+	{ "_id" : 50000 }
+	> 
+
+	--group with nested doc
+
+	> db.employee.aggregate([ {$group:{_id:"$experience.role"}} ]);
+	{ "_id" : [ "System Engineer Trainee", "System Engineer" ] }
+	{ "_id" : [ "System Engineer Trainnee" ] }
+	{ "_id" : [ "Tech Lead" ] }
+	> 
+	> 
+
+	-- group by one filed
+	> 
+	> db.employee.aggregate([ {$group:{_id:{name:"$name"}}} ]);
+	{ "_id" : { "name" : "Kuku" } }
+	{ "_id" : { "name" : "Veeny" } }
+	{ "_id" : { "name" : "bunny" } }
+	{ "_id" : { "name" : "Nemo" } }
+
+	-- group by two filed
+	> db.employee.aggregate([ {$group:{_id:{name:"$name",salary:"$salary"}}} ]);
+	{ "_id" : { "name" : "Nemo", "salary" : 40000 } }
+	{ "_id" : { "name" : "bunny", "salary" : 25000 } }
+	{ "_id" : { "name" : "Kuku", "salary" : 25000 } }
+	{ "_id" : { "name" : "Veeny", "salary" : 50000 } }
+	> 
+
