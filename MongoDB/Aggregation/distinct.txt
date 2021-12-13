@@ -1,0 +1,16 @@
+1.distinct()
+
+	> db.employee.distinct("salary");
+	[ 25000, 40000, 50000 ]
+	> 
+	> db.employee.distinct("experience.role");
+	[
+		"System Engineer",
+		"System Engineer Trainee",
+		"System Engineer Trainnee",
+		"Tech Lead"
+	]
+	> 
+	> db.employee.distinct("experience.role").length;
+	4
+	> 
