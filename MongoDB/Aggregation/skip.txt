@@ -1,0 +1,11 @@
+ $skip - to skip first n documents
+
+	> db.employee.aggregate([ {$sort : {"salary":-1}},{$skip:2}, {$project:{salary:1}} ]);
+	{ "_id" : 4, "salary" : 25000 }
+	{ "_id" : 5, "salary" : 25000 }
+	>
+
+	---to find second highest salary 
+	> db.employee.aggregate([ {$sort : {"salary":-1}},{$limit:3},{$skip:2}, {$project:{salary:1}} ]);
+	{ "_id" : 4, "salary" : 25000 }
+	> 
