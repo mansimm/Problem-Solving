@@ -1,0 +1,49 @@
+Accumulators - $sum, $avg, $min, $max
+
+1.$sum-
+
+	> db.employee.aggregate([
+	... {
+	... $group: {
+	... _id:"$department",
+	... "sumOfSalary":{$sum:"$salary"}
+	... }
+	... 
+	... }
+	... ]);
+	{ "_id" : "ETA", "sumOfSalary" : 50000 }
+	{ "_id" : "Auto", "sumOfSalary" : 90000 }
+	> 
+
+
+2. $avg-
+
+	> db.employee.aggregate([
+	... {
+	... $group:{
+	... _id : "$department",
+	... "averageSalary":{$avg:"$salary"}
+	... }
+	... }
+	... ]);
+	{ "_id" : "ETA", "averageSalary" : 25000 }
+	{ "_id" : "Auto", "averageSalary" : 45000 }
+	> 
+
+3. $min -
+
+	> db.employee.aggregate([ { $group:{ _id : "$department", "minSalary":{$min:"$salary"} } } ]);
+	{ "_id" : "Auto", "minSalary" : 40000 }
+	{ "_id" : "ETA", "minSalary" : 25000 }
+	> 
+
+4. $max-
+
+	> 
+	> db.employee.aggregate([ { $group:{ _id : "$department", "maxSalary":{$max:"$salary"} } } ]);
+	{ "_id" : "Auto", "maxSalary" : 50000 }
+	{ "_id" : "ETA", "maxSalary" : 25000 }
+	> 
+
+
+
