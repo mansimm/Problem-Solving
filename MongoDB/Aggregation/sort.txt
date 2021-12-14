@@ -1,0 +1,14 @@
+$sort 
+	-- 1 : ascending order
+	> db.employee.aggregate([ {$sort : {"salary":1}}, {$project:{salary:1}} ]);
+	{ "_id" : 4, "salary" : 25000 }
+	{ "_id" : 5, "salary" : 25000 }
+	{ "_id" : 1, "salary" : 40000 }
+	{ "_id" : 3, "salary" : 50000 }
+	> 
+	-- -1 : decending order
+	> db.employee.aggregate([ {$sort : {"salary":-1}}, {$project:{salary:1}} ]);
+	{ "_id" : 3, "salary" : 50000 }
+	{ "_id" : 1, "salary" : 40000 }
+	{ "_id" : 4, "salary" : 25000 }
+	{ "_id" : 5, "salary" : 25000 }
