@@ -1,0 +1,10 @@
+ $count
+
+	> db.employee.aggregate([
+	... {$count:"totalNoOfEmp"}
+	... ]);
+	{ "totalNoOfEmp" : 4 }
+	> 
+
+	> db.employee.aggregate([ {$group:{_id:{name:"$name",salary:"$salary"}}},{$count:"noOfGroups"} ]);
+	{ "noOfGroups" : 4 }
