@@ -1,0 +1,6 @@
+$limit - to select specific number of documents
+
+	> db.employee.aggregate([ {$sort : {"salary":-1}},{$limit:2}, {$project:{salary:1}} ]);
+	{ "_id" : 3, "salary" : 50000 }
+	{ "_id" : 1, "salary" : 40000 }
+	> 
