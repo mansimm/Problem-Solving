@@ -1,0 +1,9 @@
+$concat-
+
+	> db.employee.aggregate([ {$project : {"EmpId": {$concat : ["$department","-","$name"] }, _id:0 }} ]);
+	{ "EmpId" : "Auto-Nemo" }
+	{ "EmpId" : "Auto-Veeny" }
+	{ "EmpId" : "ETA-Kuku" }
+	{ "EmpId" : "ETA-bunny" }
+	> 
+
