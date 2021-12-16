@@ -1,0 +1,68 @@
+> db.employee.getIndexes();
+[
+	{
+		"v" : 2,
+		"key" : {
+			"_id" : 1
+		},
+		"name" : "_id_",
+		"ns" : "practice_db.employee"
+	},
+	{
+		"v" : 2,
+		"key" : {
+			"salary" : 1,
+			"department" : 1
+		},
+		"name" : "salary_1_department_1",
+		"ns" : "practice_db.employee"
+	}
+]
+> 
+> 
+> db.employee.createIndex({experience.role:1});
+2021-12-16T20:50:12.442+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:35
+> 
+> 
+> db.employee.createIndex({"experience.role":1});
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 2,
+	"numIndexesAfter" : 3,
+	"ok" : 1
+}
+> db.employee.find({"experience.role":"System Engineer"});
+{ "_id" : 4, "name" : "Kuku", "salary" : 25000, "experience" : [ { "role" : "System Engineer Trainee", "year" : 1 }, { "role" : "System Engineer", "year" : 1 } ], "department" : "ETA", "dateOfJoining" : ISODate("2013-02-01T00:00:00Z") }
+{ "_id" : 5, "name" : "bunny", "salary" : 25000, "experience" : [ { "role" : "System Engineer Trainee", "year" : 1 }, { "role" : "System Engineer", "year" : 1 } ], "department" : "ETA", "dateOfJoining" : ISODate("2011-02-15T00:00:00Z") }
+> 
+> 
+> db.employee.getIndexes();
+[
+	{
+		"v" : 2,
+		"key" : {
+			"_id" : 1
+		},
+		"name" : "_id_",
+		"ns" : "practice_db.employee"
+	},
+	{
+		"v" : 2,
+		"key" : {
+			"salary" : 1,
+			"department" : 1
+		},
+		"name" : "salary_1_department_1",
+		"ns" : "practice_db.employee"
+	},
+	{
+		"v" : 2,
+		"key" : {
+			"experience.role" : 1
+		},
+		"name" : "experience.role_1",
+		"ns" : "practice_db.employee"
+	}
+]
+> 
