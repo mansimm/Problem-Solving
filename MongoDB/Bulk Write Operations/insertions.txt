@@ -1,0 +1,51 @@
+bulkWrite() is possible with insertOne method only to perform insertion
+does not work with insert, insertMany
+
+> 
+> db.createCollection("team");
+{ "ok" : 1 }
+> 
+> 
+> db.team.bulkWrite([
+... {
+... insertOne:
+... {
+... document:
+... {
+... name : "Pooh",
+... department : "Avengers"
+... }
+... }
+... },
+... {
+... insertOne:
+... {
+... document:
+... {
+... name : "Tom",
+... department : "Terminators"
+... }
+... }
+... }
+... ]);
+{
+	"acknowledged" : true,
+	"deletedCount" : 0,
+	"insertedCount" : 2,
+	"matchedCount" : 0,
+	"upsertedCount" : 0,
+	"insertedIds" : {
+		"0" : ObjectId("61bb5b73d32d0616e04009bf"),
+		"1" : ObjectId("61bb5b73d32d0616e04009c0")
+	},
+	"upsertedIds" : {
+		
+	}
+}
+> db.team.find();
+{ "_id" : ObjectId("61bb5b73d32d0616e04009bf"), "name" : "Pooh", "department" : "Avengers" }
+{ "_id" : ObjectId("61bb5b73d32d0616e04009c0"), "name" : "Tom", "department" : "Terminators" }
+> db.team.find({},{_id:0});
+{ "name" : "Pooh", "department" : "Avengers" }
+{ "name" : "Tom", "department" : "Terminators" }
+> 
