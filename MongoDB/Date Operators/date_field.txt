@@ -1,0 +1,21 @@
+Add date field-
+
+  > db.employee.updateOne({_id:1},{$set:{"dateOfJoining":ISODate("2020-01-01")}})
+  { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+  > db.employee.updateOne({_id:2},{$set:{"dateOfJoining":ISODate("2015-02-01")}})
+  { "acknowledged" : true, "matchedCount" : 0, "modifiedCount" : 0 }
+  > db.employee.updateOne({_id:3},{$set:{"dateOfJoining":ISODate("2015-02-01")}})
+  { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+  > db.employee.updateOne({_id:4},{$set:{"dateOfJoining":ISODate("2013-02-01")}})
+  { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+  > db.employee.updateOne({_id:5},{$set:{"dateOfJoining":ISODate("2011-02-15")}})
+  { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+  > 
+
+
+  > db.employee.find();
+  { "_id" : 1, "name" : "Nemo", "salary" : 40000, "experience" : [ { "role" : "System Engineer Trainnee", "year" : 0.5 } ], "department" : "Auto", "dateOfJoining" : ISODate("2020-01-01T00:00:00Z") }
+  { "_id" : 3, "name" : "Veeny", "salary" : 50000, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ], "department" : "Auto", "dateOfJoining" : ISODate("2015-02-01T00:00:00Z") }
+  { "_id" : 4, "name" : "Kuku", "salary" : 25000, "experience" : [ { "role" : "System Engineer Trainee", "year" : 1 }, { "role" : "System Engineer", "year" : 1 } ], "department" : "ETA", "dateOfJoining" : ISODate("2013-02-01T00:00:00Z") }
+  { "_id" : 5, "name" : "bunny", "salary" : 25000, "experience" : [ { "role" : "System Engineer Trainee", "year" : 1 }, { "role" : "System Engineer", "year" : 1 } ], "department" : "ETA", "dateOfJoining" : ISODate("2011-02-15T00:00:00Z") }
+  > 
