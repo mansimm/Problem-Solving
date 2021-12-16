@@ -1,0 +1,42 @@
+    bulkWrite() can work with deleteOne() and deleteMany()
+
+> 
+> db.team.find({},{_id:0});
+{ "name" : "Pooh", "department" : "Avengers", "salary" : 70000 }
+{ "name" : "Tom", "department" : "Terminators", "salary" : 50000 }
+{ "name" : "Spiderman", "department" : "Avengers", "salary" : 70000 }
+{ "name" : "Jerry", "department" : "Challengers", "salary" : 40000 }
+> 
+> 
+> db.team.bulkWrite([
+... {
+... deleteOne:{
+... filter: {
+... name:"Tom"
+... }
+... }
+... },
+... {
+... deleteMany:{
+... filter: {
+... department:"Avengers"
+... }
+... }
+... }
+... ]);
+{
+	"acknowledged" : true,
+	"deletedCount" : 3,
+	"insertedCount" : 0,
+	"matchedCount" : 0,
+	"upsertedCount" : 0,
+	"insertedIds" : {
+		
+	},
+	"upsertedIds" : {
+		
+	}
+}
+> db.team.find({},{_id:0});
+{ "name" : "Jerry", "department" : "Challengers", "salary" : 40000 }
+> 
