@@ -1,0 +1,25 @@
+ 
+ 
+ 1.$year-
+ 
+ 
+  > db.employee.aggregate([
+  ... {$project:
+  ... {"yearOfJoining":{$year:"$dateOfJoining"}}
+  ... }
+  ... ]);
+  { "_id" : 1, "yearOfJoining" : 2020 }
+  { "_id" : 3, "yearOfJoining" : 2015 }
+  { "_id" : 4, "yearOfJoining" : 2013 }
+  { "_id" : 5, "yearOfJoining" : 2011 }
+  > 
+  > 
+  
+ 2.$month-
+ 
+  > db.employee.aggregate([ {$project: {"monthOfJoining":{$month:"$dateOfJoining"}} } ]);
+  { "_id" : 1, "monthOfJoining" : 1 }
+  { "_id" : 3, "monthOfJoining" : 2 }
+  { "_id" : 4, "monthOfJoining" : 2 }
+  { "_id" : 5, "monthOfJoining" : 2 }
+  > 
