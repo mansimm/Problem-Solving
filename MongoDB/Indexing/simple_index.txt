@@ -1,0 +1,184 @@
+Indexing-
+
+without index-
+
+
+	> 
+	> db.employee.find({"department":"ETA"},{}).explain("executionStats");
+	{
+		"queryPlanner" : {
+			"plannerVersion" : 1,
+			"namespace" : "practice_db.employee",
+			"indexFilterSet" : false,
+			"parsedQuery" : {
+				"department" : {
+					"$eq" : "ETA"
+				}
+			},
+			"winningPlan" : {
+				"stage" : "COLLSCAN",
+				"filter" : {
+					"department" : {
+						"$eq" : "ETA"
+					}
+				},
+				"direction" : "forward"
+			},
+			"rejectedPlans" : [ ]
+		},
+		"executionStats" : {
+			"executionSuccess" : true,
+			"nReturned" : 2,
+			"executionTimeMillis" : 0,
+			"totalKeysExamined" : 0,
+			"totalDocsExamined" : 4,
+			"executionStages" : {
+				"stage" : "COLLSCAN",
+				"filter" : {
+					"department" : {
+						"$eq" : "ETA"
+					}
+				},
+				"nReturned" : 2,
+				"executionTimeMillisEstimate" : 0,
+				"works" : 6,
+				"advanced" : 2,
+				"needTime" : 3,
+				"needYield" : 0,
+				"saveState" : 0,
+				"restoreState" : 0,
+				"isEOF" : 1,
+				"direction" : "forward",
+				"docsExamined" : 4
+			}
+		},
+		"serverInfo" : {
+			"host" : "host",
+			"port" : 27017,
+			"version" : "4.2.13",
+			"gitVersion" : "82dd40f60c55dae8fd7150d79a0e28e23"
+		},
+		"ok" : 1
+	}
+	> 
+
+Create index on department column -
+
+	> 
+	> 
+	> db.employee.createIndex({department:-1});
+	{
+		"createdCollectionAutomatically" : false,
+		"numIndexesBefore" : 1,
+		"numIndexesAfter" : 2,
+		"ok" : 1
+	}
+	> 
+
+after creation of index on department-
+
+	> 
+	> db.employee.find({"department":"ETA"},{}).explain("executionStats");
+	{
+		"queryPlanner" : {
+			"plannerVersion" : 1,
+			"namespace" : "practice_db.employee",
+			"indexFilterSet" : false,
+			"parsedQuery" : {
+				"department" : {
+					"$eq" : "ETA"
+				}
+			},
+			"winningPlan" : {
+				"stage" : "FETCH",
+				"inputStage" : {
+					"stage" : "IXSCAN",
+					"keyPattern" : {
+						"department" : -1
+					},
+					"indexName" : "department_-1",
+					"isMultiKey" : false,
+					"multiKeyPaths" : {
+						"department" : [ ]
+					},
+					"isUnique" : false,
+					"isSparse" : false,
+					"isPartial" : false,
+					"indexVersion" : 2,
+					"direction" : "forward",
+					"indexBounds" : {
+						"department" : [
+							"[\"ETA\", \"ETA\"]"
+						]
+					}
+				}
+			},
+			"rejectedPlans" : [ ]
+		},
+		"executionStats" : {
+			"executionSuccess" : true,
+			"nReturned" : 2,
+			"executionTimeMillis" : 32,
+			"totalKeysExamined" : 2,
+			"totalDocsExamined" : 2,
+			"executionStages" : {
+				"stage" : "FETCH",
+				"nReturned" : 2,
+				"executionTimeMillisEstimate" : 0,
+				"works" : 3,
+				"advanced" : 2,
+				"needTime" : 0,
+				"needYield" : 0,
+				"saveState" : 0,
+				"restoreState" : 0,
+				"isEOF" : 1,
+				"docsExamined" : 2,
+				"alreadyHasObj" : 0,
+				"inputStage" : {
+					"stage" : "IXSCAN",
+					"nReturned" : 2,
+					"executionTimeMillisEstimate" : 0,
+					"works" : 3,
+					"advanced" : 2,
+					"needTime" : 0,
+					"needYield" : 0,
+					"saveState" : 0,
+					"restoreState" : 0,
+					"isEOF" : 1,
+					"keyPattern" : {
+						"department" : -1
+					},
+					"indexName" : "department_-1",
+					"isMultiKey" : false,
+					"multiKeyPaths" : {
+						"department" : [ ]
+					},
+					"isUnique" : false,
+					"isSparse" : false,
+					"isPartial" : false,
+					"indexVersion" : 2,
+					"direction" : "forward",
+					"indexBounds" : {
+						"department" : [
+							"[\"ETA\", \"ETA\"]"
+						]
+					},
+					"keysExamined" : 2,
+					"seeks" : 1,
+					"dupsTested" : 0,
+					"dupsDropped" : 0
+				}
+			}
+		},
+		"serverInfo" : {
+			"host" : "host",
+			"port" : 27017,
+			"version" : "4.2.13",
+			"gitVersion" : "82dd40f60c55dae8fd7150d79a0e28e23"
+		},
+		"ok" : 1
+	}
+	> 
+
+
+
