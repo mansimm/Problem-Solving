@@ -1,0 +1,46 @@
+
+> db.team.find({},{_id:0});
+{ "name" : "Jerry", "department" : "Challengers", "salary" : 40000 }
+> 
+> 
+> db.team.bulkWrite([
+... {
+... insertOne :
+... {
+... document:
+... { "name" : "Tom", "department" : "Terminators", "salary" : 50000 }
+... }
+... 
+... },
+... {
+... updateOne:
+... {
+... filter: {name : "Tom"},
+... update: {$set : {"salary": 55000}},
+... upsert: true
+... }
+... },
+... {
+... deleteOne:
+... {
+... filter:
+... {name: "Jerry"}
+... }
+... }
+... ]);
+{
+	"acknowledged" : true,
+	"deletedCount" : 1,
+	"insertedCount" : 1,
+	"matchedCount" : 1,
+	"upsertedCount" : 0,
+	"insertedIds" : {
+		"0" : ObjectId("61bb60aed32d0616e04009c3")
+	},
+	"upsertedIds" : {
+		
+	}
+}
+> db.team.find({},{_id:0});
+{ "name" : "Tom", "department" : "Terminators", "salary" : 55000 }
+> 
