@@ -1,0 +1,127 @@
+ 
+> 
+> db.employee.find({salary:{$gt:25000},department:"ETA"});
+> db.employee.find({salary:{$gt:25000},department:"Auto"});
+{ "_id" : 1, "name" : "Nemo", "salary" : 40000, "experience" : [ { "role" : "System Engineer Trainnee", "year" : 0.5 } ], "department" : "Auto", "dateOfJoining" : ISODate("2020-01-01T00:00:00Z") }
+{ "_id" : 3, "name" : "Veeny", "salary" : 50000, "experience" : [ { "role" : "Tech Lead", "year" : 1 } ], "department" : "Auto", "dateOfJoining" : ISODate("2015-02-01T00:00:00Z") }
+> 
+> 
+> db.employee.find({salary:{$gt:25000},department:"Auto"}).explain("executionStats");
+{
+	"queryPlanner" : {
+		"plannerVersion" : 1,
+		"namespace" : "practice_db.employee",
+		"indexFilterSet" : false,
+		"parsedQuery" : {
+			"$and" : [
+				{
+					"department" : {
+						"$eq" : "Auto"
+					}
+				},
+				{
+					"salary" : {
+						"$gt" : 25000
+					}
+				}
+			]
+		},
+		"winningPlan" : {
+			"stage" : "FETCH",
+			"inputStage" : {
+				"stage" : "IXSCAN",
+				"keyPattern" : {
+					"salary" : 1,
+					"department" : 1
+				},
+				"indexName" : "salary_1_department_1",
+				"isMultiKey" : false,
+				"multiKeyPaths" : {
+					"salary" : [ ],
+					"department" : [ ]
+				},
+				"isUnique" : false,
+				"isSparse" : false,
+				"isPartial" : false,
+				"indexVersion" : 2,
+				"direction" : "forward",
+				"indexBounds" : {
+					"salary" : [
+						"(25000.0, inf.0]"
+					],
+					"department" : [
+						"[\"Auto\", \"Auto\"]"
+					]
+				}
+			}
+		},
+		"rejectedPlans" : [ ]
+	},
+	"executionStats" : {
+		"executionSuccess" : true,
+		"nReturned" : 2,
+		"executionTimeMillis" : 0,
+		"totalKeysExamined" : 2,
+		"totalDocsExamined" : 2,
+		"executionStages" : {
+			"stage" : "FETCH",
+			"nReturned" : 2,
+			"executionTimeMillisEstimate" : 0,
+			"works" : 3,
+			"advanced" : 2,
+			"needTime" : 0,
+			"needYield" : 0,
+			"saveState" : 0,
+			"restoreState" : 0,
+			"isEOF" : 1,
+			"docsExamined" : 2,
+			"alreadyHasObj" : 0,
+			"inputStage" : {
+				"stage" : "IXSCAN",
+				"nReturned" : 2,
+				"executionTimeMillisEstimate" : 0,
+				"works" : 3,
+				"advanced" : 2,
+				"needTime" : 0,
+				"needYield" : 0,
+				"saveState" : 0,
+				"restoreState" : 0,
+				"isEOF" : 1,
+				"keyPattern" : {
+					"salary" : 1,
+					"department" : 1
+				},
+				"indexName" : "salary_1_department_1",
+				"isMultiKey" : false,
+				"multiKeyPaths" : {
+					"salary" : [ ],
+					"department" : [ ]
+				},
+				"isUnique" : false,
+				"isSparse" : false,
+				"isPartial" : false,
+				"indexVersion" : 2,
+				"direction" : "forward",
+				"indexBounds" : {
+					"salary" : [
+						"(25000.0, inf.0]"
+					],
+					"department" : [
+						"[\"Auto\", \"Auto\"]"
+					]
+				},
+				"keysExamined" : 2,
+				"seeks" : 1,
+				"dupsTested" : 0,
+				"dupsDropped" : 0
+			}
+		}
+	},
+	"serverInfo" : {
+		"host" : "host",
+		"port" : 27017,
+		"version" : "4.2.13",
+		"gitVersion" : "82dd426c08fd7150d79a0e28e23"
+	},
+	"ok" : 1
+}
