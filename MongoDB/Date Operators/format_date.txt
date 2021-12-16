@@ -1,0 +1,40 @@
+> 
+> 
+> db.employee.aggregate([
+... {
+... $project:{
+... "formatedDate":{
+... $dateToString:{
+... date:"$dateOfJoining",
+... format:"%Y-%m-%d"
+... }
+... }
+... }
+... }
+... ]);
+{ "_id" : 1, "formatedDate" : "2020-01-01" }
+{ "_id" : 3, "formatedDate" : "2015-02-01" }
+{ "_id" : 4, "formatedDate" : "2013-02-01" }
+{ "_id" : 5, "formatedDate" : "2011-02-15" }
+> 
+> 
+> db.employee.aggregate([ { $project:{ "formatedDate":{ $dateToString:{ date:"$dateOfJoining", format:"%d-%m-%Y" } } } } ]);
+{ "_id" : 1, "formatedDate" : "01-01-2020" }
+{ "_id" : 3, "formatedDate" : "01-02-2015" }
+{ "_id" : 4, "formatedDate" : "01-02-2013" }
+{ "_id" : 5, "formatedDate" : "15-02-2011" }
+> 
+> 
+> db.employee.aggregate([ { $project:{ "formatedDate":{ $dateToString:{ date:"$dateOfJoining", format:"%d/%m/%Y" } } } } ]);
+{ "_id" : 1, "formatedDate" : "01/01/2020" }
+{ "_id" : 3, "formatedDate" : "01/02/2015" }
+{ "_id" : 4, "formatedDate" : "01/02/2013" }
+{ "_id" : 5, "formatedDate" : "15/02/2011" }
+> 
+> 
+> db.employee.aggregate([ { $project:{ "formatedDate":{ $dateToString:{ date:"$dateOfJoining", format:"%m/%Y" } } } } ]);
+{ "_id" : 1, "formatedDate" : "01/2020" }
+{ "_id" : 3, "formatedDate" : "02/2015" }
+{ "_id" : 4, "formatedDate" : "02/2013" }
+{ "_id" : 5, "formatedDate" : "02/2011" }
+> 
