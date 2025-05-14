@@ -9,3 +9,4 @@ class Solution {
         return left << count;
     }
 }
+//Time c = O(32) => O(1), space c = O(1)
