@@ -1,5 +1,5 @@
 //1D DP
-class Solution {
+class Solution2 {
     public int climbStairs(int n) {
         if(n==0 || n==1){
             return 1;
