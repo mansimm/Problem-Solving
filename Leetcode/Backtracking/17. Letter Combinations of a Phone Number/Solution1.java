@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
     public List<String> letterCombinations(String digits) {
         List<String> ans = new ArrayList();
         if(digits==null || digits.isEmpty()){
