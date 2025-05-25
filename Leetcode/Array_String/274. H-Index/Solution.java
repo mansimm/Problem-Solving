@@ -1,0 +1,15 @@
+class Solution {
+    public int hIndex(int[] citations) {
+        int n = citations.length;
+    
+        Arrays.sort(citations);
+        int i;
+        for(i=0;i<n;i++){
+            if(citations[i]>=n-i){
+                return n-i;
+            }
+        }
+        return 0;
+    }
+}
+//Time c = O(n) and space c = O(1)
