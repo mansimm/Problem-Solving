@@ -17,3 +17,4 @@ class Solution {
         return max; 
     }
 }
+//Time c = O(n) and space c = O(1)
