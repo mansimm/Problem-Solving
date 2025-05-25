@@ -10,3 +10,4 @@ class Solution {
         return finalPosition==0;
     }
 }
+//Time c = O(n) and space c = O(1)
