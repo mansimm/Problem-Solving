@@ -18,4 +18,4 @@ class Solution {
         return Arrays.stream(candy).sum();
     }
 }
-//Time c O(n) and space c O(1)
+//Time c O(n) and space c O(n) to store candy array as result
