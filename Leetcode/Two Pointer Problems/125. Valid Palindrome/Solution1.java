@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
     public boolean isPalindrome(String s) {
         int i = 0;
         String in = s.toLowerCase();
