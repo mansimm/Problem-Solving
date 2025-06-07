@@ -7,7 +7,7 @@ Steps:
 5.	Then start iteration on offset goes from 0 to wordSize (we will check all combinations starting from 0,1,2,…wordSize-1)
 6.	Inside it initialize currentCount to store current loop count for current offset
 7.	Assign start=offset, end = offset, count=0
-8.	Iterate on end to end+wordSize<N and increment end+=wordSize
+8.	Iterate on end to end+wordSize<=N and increment end+=wordSize
 9.	Fetch the word currentWord=s.substring(end, end+wordSize) and if it is present in originalCount, map add it to currentMap, count++
 10.	In inner while loop check if count of currentWord in currentCount Map is greater than count in originalCount Map,
 11.	If yes then fetch starting word, startword = s.substring(start, start+wordSize), decrements startWords count in currentCount and count--.
