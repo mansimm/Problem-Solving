@@ -1,6 +1,6 @@
 // Steps:
 // 1.	Reverse all rows[]
-// 2.	Then take transpose of matrix (ie. Swap matrix[i][j] with matrix[j])
+// 2.	Then take transpose of matrix (ie. Swap matrix[i][j] with matrix[j][i])
 class Solution {
     public void rotate(int[][] matrix) {
         int n = matrix.length;
