@@ -3,7 +3,7 @@
 2.	create dummy node and dummy.next = head
 3.	we need pointers temp, tempNext=points to temp.next, first=temp.next, second=first.next, next=second.next
 4.	iterate while temp.next!=null, if current count<k return list
-5.	initialize nodes = k-1, reverse node till node--!=0, after that assign temp.next=first, tempNext.next=second, count=count-k
+5.	initialize nodes = k-1, reverse node till node--!=0, after that assign temp.next=first, tempNext.next=second, count=count-k, , temp=temNext
 6.	return dummy.next
   */
 /**
