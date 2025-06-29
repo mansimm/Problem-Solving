@@ -22,3 +22,27 @@ class Solution {
     }
 }
 //Time O(n) and space O(n) , https://youtu.be/ihj4IQGZ2zc
+/*
+🧠 Time Complexity: O(n)
+Breakdown:
+HashMap creation: O(n)
+Recursive tree building:
+Each node is processed once.
+Every recursive call does O(1) work (HashMap lookup, index math, object creation).
+Total recursive calls = n (number of nodes).
+
+✅ Total Time Complexity = O(n)
+
+🧠 Space Complexity: O(n)
+Components:
+HashMap:
+Stores n entries (value → index) → O(n)
+Recursive Call Stack:
+Depends on tree height:
+Balanced Tree → height = log n → call stack = O(log n)
+Skewed Tree → height = n → call stack = O(n)
+
+So, worst-case total space:
+✅ Space Complexity = O(n)
+(hashmap + recursion stack in worst case)
+*/
