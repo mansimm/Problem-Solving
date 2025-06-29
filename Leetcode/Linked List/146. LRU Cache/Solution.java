@@ -1,3 +1,6 @@
+// Steps:
+// 1.	we will create HashMap to store key and Node
+// 2.	Create cache as LinkedHashMap which will maintain order of insertion, so we can track least recently used element
 class LRUCache {
     private int capacity;
     private Set<Node> cache = new LinkedHashSet();
