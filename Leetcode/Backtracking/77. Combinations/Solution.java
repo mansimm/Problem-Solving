@@ -24,3 +24,46 @@ class Solution {
         backtrack(index+1);
     }
 }
+/*
+Time Complexity: O(C(n,k) × k)
+Breakdown:
+1.Total combinations generated: C(n,k) = n!/(k!(n-k)!)
+    This is the mathematical number of ways to choose k items from n items
+2.Work per combination:
+    When currentCombination.size() == comboLen, we execute:
+    new ArrayList(currentCombination): O(k) - copies k elements
+    result.add(...): O(1) - adds to result list
+3.Total recursive calls:
+    The algorithm explores a binary decision tree
+    Each number has 2 choices: include or exclude
+    Maximum depth: n levels
+    Total nodes in decision tree: O(2^n)
+    However, many branches are pruned early
+4.Actual work done:
+    Only C(n,k) branches reach the base case and do meaningful work
+    Each successful branch does O(k) work for copying
+    Total: C(n,k) × k
+    Examples:
+    combine(4, 2): C(4,2) × 2 = 6 × 2 = 12 operations
+    combine(5, 3): C(5,3) × 3 = 10 × 3 = 30 operations
+    
+Space Complexity: O(k)
+Auxiliary Space Analysis:
+1.Recursion call stack:
+    Maximum depth: n (when we keep including numbers 1,2,3...n)
+    Each call frame: O(1) space
+    Stack space: O(n)
+2.Current combination storage:
+    currentCombination list: maximum size k
+    Space: O(k)
+3.Instance variables:
+    comboLen, totalNumbers: O(1)
+    Auxiliary Space: O(n + k) = O(n) since typically n ≥ k
+    Total Space (including output):
+4.Result storage:
+    Number of combinations: C(n,k)
+    Each combination size: k
+    Total result space: O(C(n,k) × k)
+    Total Space: O(C(n,k) × k + n)
+
+*/
