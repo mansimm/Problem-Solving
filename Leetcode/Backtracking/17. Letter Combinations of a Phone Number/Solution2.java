@@ -33,3 +33,41 @@ class Solution2 {
         }
     }
 }
+/*
+Time Complexity: O(4^n × n)
+Breakdown:
+n = length of input digits string
+4 = maximum number of letters per digit (digits 7 and 9 have 4 letters)
+Detailed Analysis:
+1.Recursive calls structure:
+    Each digit can have up to 4 possible letters
+    We explore all combinations through backtracking
+    Total combinations generated: up to 4^n
+2.Work per combination:
+    path.toString(): O(n) - converts StringBuilder to String
+    path.append(str): O(1) amortized
+    path.deleteCharAt(): O(1) 
+    digits.charAt(index): O(1)
+3.Total recursive calls: O(4^n)
+4.Work per leaf node: O(n) for string conversion
+    Total: O(4^n) combinations × O(n) string conversion = O(4^n × n)
+    
+Space Complexity: O(n)
+Space Usage:
+1.Recursion call stack:
+    Maximum depth: n (one call per digit)
+    Each call frame: O(1) space
+    Stack space: O(n)
+2.StringBuilder path:
+    Maximum length: n characters
+    Space: O(n)
+3.HashMap digitToString:
+    Fixed size (8 entries)
+    Space: O(1)
+4.Result list:
+    Contains up to 4^n strings, each of length n
+    Space: O(4^n × n)
+    Note: This is output space, often not counted in auxiliary space analysis
+    Auxiliary Space (excluding output): O(n) Total Space (including output): O(4^n × n)
+
+*/
