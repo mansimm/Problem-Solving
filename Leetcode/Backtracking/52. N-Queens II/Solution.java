@@ -21,6 +21,20 @@ class Solution {
     }
 }
 /*
+Time Complexity:
+The time complexity is not actually O(N!), but closer to O(N!), specifically it's O(N^N).
+Here's why:
+1. At each row, we have at most N choices (columns) to place a queen.
+2. We do this for N rows.
+3. This gives us an upper bound of N^N possible configurations to check.
+However, due to the pruning of invalid configurations using the boolean arrays, the actual number of configurations explored is much less than N^N in practice, but it's still exponential.
+
+Space Complexity:
+- The recursive call stack uses O(N) space.
+- The boolean arrays (cols, diag1, diag2) use O(N) space each.
+Therefore, the total space complexity is indeed O(N).
+
+Summary -
 - Time Complexity: O(N^N)
 - Space Complexity: O(N)
 */
