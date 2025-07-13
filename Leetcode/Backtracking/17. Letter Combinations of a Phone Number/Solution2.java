@@ -1,4 +1,13 @@
 //Solution 2: Better runtime 
+/*
+Steps:
+1.	Create hashmap to store digitToString mapping, arraylist result to store result
+2.	Create a helper function which takes 3 params, digits, stringbuilder path, index of current digit
+3.	In helper first check if path.length==digits.length if yes add path.toSTring in result
+4.	Else fetch current digit at index, and append it to path
+5.	Call helper(digits, path, index+1)
+6.	And backtrack by removing last letter from path 
+*/
 class Solution2 {
     Map<Character, String> digitToString = new HashMap();
     List<String> result = new ArrayList();
