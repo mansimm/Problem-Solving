@@ -1,3 +1,8 @@
+/*
+Logic:
+•	First divide the list and then merge it in ascending order
+•	To find the mid use slow and fast pointers
+*/
 /**
  * Definition for singly-linked list.
  * public class ListNode {
