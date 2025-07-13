@@ -1,3 +1,10 @@
+/*
+Logic:
+•	Create a function buildTree and pass start and end as 0 and arr.len-1 respectively
+•	Find the mid element from sorted array and create root node from this value
+•	Recursively call same function on left of mid and assign it to root.left
+•	Recursively call same function on right of mid and assign it to root.right
+*/
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
