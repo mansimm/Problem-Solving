@@ -1,3 +1,11 @@
+/*
+Steps:
+1.	Create a string array combination to store all letters mapping to number
+2.	Create list ans to store combinations, initially add “” in ans
+3.	Iterate over the characters of string digits, for each digit find index of its chars mapping by idx=digit-2, find chars for that digit and store in str = combinations[idx]
+4.	Create temp arraylist, iterate over ans, for each ans iterate on str, to find combination and add it to temp
+5.	After this assign ans=temp, continue to iterate on digit
+*/
 class Solution1 {
     public List<String> letterCombinations(String digits) {
         List<String> ans = new ArrayList();
