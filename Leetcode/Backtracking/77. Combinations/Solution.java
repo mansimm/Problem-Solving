@@ -1,3 +1,13 @@
+/*
+Steps:
+1.	Create list currentCombination to store current combo and List<List> to store result
+2.	Assign combolen and totalnumbers with k and n respectively, call backtrack(1)
+3.	In backtrack first check if currentCombination.length==n, if yes add it to result and return
+4.	If index is greater than totalNumber return 
+5.	Else add the index in currentCombination and call backtrack(index+1)
+6.	Remove last element from currentCombination
+7.	Again call backtrack(index+1)
+*/
 class Solution {
     List<Integer> currentCombination = new ArrayList();
     List<List<Integer>> result = new ArrayList();
