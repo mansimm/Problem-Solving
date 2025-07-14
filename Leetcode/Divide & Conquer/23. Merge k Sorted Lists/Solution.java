@@ -1,3 +1,11 @@
+/*
+Logic:
+1.	Create a list head from array of heads
+2.	Iterate over list of heads and merge 2 subsequent lists and add result list in merged list
+3.	At the end of iteration assign head=merged
+4.	Continue this 2,3 till head has only 1 list, ie. head.size()>1
+5.	Return first element of head
+*/
 /**
  * Definition for singly-linked list.
  * public class ListNode {
