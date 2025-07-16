@@ -1,3 +1,11 @@
+/*
+Logic:
+•	Follow binary search algorithm with some changes
+•	Start=0 and end=nums.len, mid=(start+end)/2
+•	If nums[mid]==target return mid
+•	If target>nums[mid] set start=mid+1
+•	Else set end = mid
+*/
 class Solution {
     public int searchInsert(int[] nums, int target) {
         int start = 0;
