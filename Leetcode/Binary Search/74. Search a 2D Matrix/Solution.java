@@ -1,3 +1,9 @@
+/*
+Logic:
+•	Follow binary search algorithm
+•	First find potential row in which we can find target, use same algo, if not found return -1
+•	Then continue search using binary search in potential row, if not found return -1
+*/
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
         int row = searchPotentialRow(matrix, target);
