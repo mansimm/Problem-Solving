@@ -1,3 +1,10 @@
+/*
+Logic:
+•	We will follow binary search in 2 function findLeftBound(to find leftmost occurrence) and findRigthBound to find rightmost occurrence
+•	findLeftBound: when target is found at mid we will not stop we will assign r=mid-1 and continue search to find leftmost occurrence
+•	findRightBound: when target is found at mid we will not stop we will assign l=mid+1 and continue search to find leftmost occurrence
+•	index variable is used to store latest index
+*/
 class Solution {
     public int[] searchRange(int[] nums, int target) {
         int start = findLeftBound(nums, target);
