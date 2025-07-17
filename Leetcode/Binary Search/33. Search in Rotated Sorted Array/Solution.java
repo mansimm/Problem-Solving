@@ -1,3 +1,10 @@
+/*Logic:
+•	We will use binary search with some additional checks to see if left or right side is sorted
+•	If num[mid]==target return mid
+•	Else check if left is sorted (nums[mid]>=nums[l]) if yes see if target>=nums[l] && target<nums[mid] then r=mid-1 else l=mid+1
+•	If left side is not sorted, then check if target>nums[mid] && target<=target[r] if yes set l=mid+1 else r=mid-1
+•	In the end return -1
+*/
 class Solution {
     public int search(int[] nums, int target) {
         int l = 0;
