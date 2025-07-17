@@ -1,3 +1,10 @@
+/*
+Logic:
+•	Use binary search, find mid=(l+r)/2
+•	If nums[mid]<nums[r] means this part is sorted assign r=mid
+•	Else assign l=mid+1
+•	Return nums[l] it will be minimum in the end
+*/
 class Solution {
     public int findMin(int[] nums) {
         int l = 0;
