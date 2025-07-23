@@ -1,3 +1,22 @@
+/*
+Note: The median of a sorted array is the middle value that separates the higher half from the lower half. Here's how it's determined:
+•	If the array has an odd number of elements, the median is the middle element.
+•	If the array has an even number of elements, the median is the average of the two middle elements.
+
+Steps:
+1.Choose the smaller array to search in (for efficiency)
+2.Imagine combining both arrays into one sorted array without actually doing it
+3.Use binary search to find where to "cut" both arrays so that:
+    Left side has same number of elements as right side (or one more)
+    All left elements ≤ all right elements
+4.Check the "cut" is valid:
+    Largest element on left side of array1 ≤ smallest element on right side of array2
+    Largest element on left side of array2 ≤ smallest element on right side of array1
+5.Calculate median:
+    If total elements is even: average of the two middle values
+    If total elements is odd: the middle value
+
+*/
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int n1 = nums1.length;
