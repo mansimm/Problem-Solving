@@ -52,3 +52,30 @@ class Solution {
     }
 }
 //Time c = O(log(min(m,n))), space c = O(1)
+/*
+Time Complexity: O(log(min(m, n)))
+Breakdown:
+1.Initial Setup: O(1)
+2.Binary Search Loop: O(log(min(m, n)))
+Why log(min(m, n))?
+We always perform binary search on the smaller array
+Binary search reduces search space by half each iteration
+If smaller array has k elements, we need log(k) iterations
+Since k = min(m, n), complexity is O(log(min(m, n)))
+Space Complexity: O(1)
+Breakdown:
+1.Variables Used: O(1)
+1.Variables Used: O(1)
+int n1, n2;              // O(1) space
+int l, r;                // O(1) space
+int partition1, partition2; // O(1) space
+int maxLeft1, maxLeft2;  // O(1) space
+int minRight1, minRight2; // O(1) space
+2.No Additional Data Structures: 
+No arrays created
+No recursion stack (except the initial swap call)
+No dynamic memory allocation
+3.Recursive Call Consideration:
+Maximum one recursive call for swapping arrays
+This adds O(1) to call stack, not O(n)
+*/
