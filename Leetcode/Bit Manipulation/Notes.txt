@@ -1,0 +1,20 @@
+Note :
+
+Bit Shifting Operations:
+
+1.Left Shift (<<):
+  Shifts all bits to the left by a specified number of positions.
+  Zeros are filled in from the right.
+  Each shift left multiplies the number by 2.
+  Example: 5 in binary is 00000101 5 << 1 becomes 00001010 (which is 10 in decimal) 5 << 2 becomes 00010100 (which is 20 in decimal)
+
+2.Right Shift (>>):
+  Shifts all bits to the right by a specified number of positions.
+  For positive numbers, zeros are filled in from the left.
+  For negative numbers, the sign bit (leftmost bit) is used to fill from the left.
+  Each shift right divides the number by 2 (integer division).
+  Example: 20 in binary is 00010100 20 >> 1 becomes 00001010 (which is 10 in decimal) 20 >> 2 becomes 00000101 (which is 5 in decimal)
+
+3.Unsigned Right Shift (>>>):
+  Similar to right shift, but always fills with zeros from the left, regardless of whether the number is positive or negative.
+  Example: -1 in binary (32-bit) is 11111111111111111111111111111111 -1 >>> 1 becomes 01111111111111111111111111111111 (2147483647 in decimal)
