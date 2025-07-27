@@ -1,0 +1,85 @@
+Note:
+Question: Don’t understand when to use l <= r and when l<r, when use mid = (l+r)/2 and when l+(r-l)/2 in binary search ??
+Answer: These are common points of confusion in binary search implementations. Let's break it down:
+
+1. `l <= r` vs `l < r`:
+
+   - Use `l <= r` when:
+     - You want to include the case where `l` and `r` are equal.
+     - You're looking for an exact value or the last valid value in a range.
+     - In problems like finding square root, where the answer might be at the point where `l` and `r` meet.
+
+   - Use `l < r` when:
+     - You want to stop just before `l` and `r` cross each other.
+     - You're sure the answer can't be at the point where `l` and `r` are equal.
+     - In problems where you're looking for a boundary between two conditions.
+
+2. `mid = (l + r) / 2` vs `mid = l + (r - l) / 2`:
+
+   - `mid = (l + r) / 2` is simpler and works in most cases.
+   - `mid = l + (r - l) / 2` is used to prevent integer overflow:
+     - When `l` and `r` are very large integers, their sum might exceed the maximum value of an int (2^31 - 1 in Java).
+     - The formula `l + (r - l) / 2` mathematically equals `(l + r) / 2`, but avoids the potential overflow.
+
+For the square root problem:
+
+- We use `l <= r` because the answer could be at the point where `l` and `r` meet. For example, for `x = 4`, the answer is 2, which is where `l` and `r` will meet.
+- We use `l + (r - l) / 2` to be safe against overflow, especially since we're dealing with squares which can get very large.
+
+General advice:
+1. If you're not sure, start with `l <= r` and `l + (r - l) / 2`. These are safer in most cases.
+2. If you're dealing with very large numbers or squaring/multiplying values in your binary search, definitely use `l + (r - l) / 2`.
+3. If you find your code is including an extra value that it shouldn't, or if you're ending up in an infinite loop, then consider switching to `l < r`.
+
+Remember, the choice often depends on the specific problem and the range of input values you're dealing with. Practice with different problems will help you develop an intuition for which to use when.
+
+Question: how come l<=r can lead to infinite loops?
+Answer: You're right to question this, as it's a common misconception that `l <= r` leads to infinite loops. In fact, `l <= r` doesn't inherently cause infinite loops. Let me clarify:
+
+1. `l <= r` doesn't cause infinite loops by itself.
+2. Infinite loops can occur in binary search regardless of whether you use `l <= r` or `l < r`, if the rest of the logic isn't implemented correctly.
+
+The key to avoiding infinite loops lies in how you update `l` and `r` within the loop. Here's when an infinite loop might occur:
+
+1. If you don't change `l` or `r` in some cases inside the loop.
+2. If you don't move `l` or `r` past the `mid` point when appropriate.
+
+For example, this could lead to an infinite loop:
+
+```java
+while (l <= r) {
+    int mid = l + (r - l) / 2;
+    if (arr[mid] < target) {
+        l = mid; // Should be l = mid + 1
+    } else {
+        r = mid; // Should be r = mid - 1
+    }
+}
+```
+
+In this case, if `arr[mid] < target`, `l` is set to `mid` instead of `mid + 1`. This could lead to a situation where `l`, `mid`, and `r` don't change, causing an infinite loop.
+
+The correct implementation would be:
+
+```java
+while (l <= r) {
+    int mid = l + (r - l) / 2;
+    if (arr[mid] < target) {
+        l = mid + 1;
+    } else if (arr[mid] > target) {
+        r = mid - 1;
+    } else {
+        return mid; // Found the target
+    }
+}
+```
+
+In this correct version:
+- We always move `l` or `r` past the `mid` point.
+- We handle the case when we find the target.
+- The loop will eventually terminate because `l` and `r` are always moving towards each other.
+
+So, to summarize:
+- `l <= r` is often preferred because it allows you to check the last element when `l` and `r` meet.
+- The key to avoiding infinite loops is to ensure that you're always changing `l` or `r` in a way that moves them towards each other, and that you're handling all cases correctly.
+- Whether you use `l <= r` or `l < r`, make sure your logic inside the loop is correct and that you're moving the pointers appropriately.
