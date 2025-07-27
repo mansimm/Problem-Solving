@@ -33,4 +33,23 @@
 	 * obj.addNum(num);
 	 * double param_2 = obj.findMedian();
 	 */
-//Time c = O(nlogn) and space O(n)
+/*
+🔍 Overview of the Code:
+•	The class maintains two heaps:
+o	maxHeap: stores the smaller half of numbers (as a max-heap using PriorityQueue with reversed comparator).
+o	minHeap: stores the larger half of numbers (as a min-heap using PriorityQueue).
+This setup allows efficient median tracking as numbers are added.
+________________________________________
+✅ Time Complexity
+addNum(int num):
+•	Insertion into a heap: O(log n) (either into maxHeap or minHeap).
+•	Rebalancing: May involve at most one poll and one offer for each heap → still O(log n).
+✔️ Overall: O(log n) per addNum.
+findMedian():
+•	Just peek operations, which are O(1).
+✔️ Overall: O(1) for findMedian.
+________________________________________
+✅ Space Complexity
+You're storing all inserted elements in either maxHeap or minHeap. Each number is stored once in one of the heaps.
+✔️ Total space: O(n), where n is the number of elements added.
+*/
