@@ -31,8 +31,24 @@ class Solution {
     }
 }
 /*
-Overall, the time complexity is O(n^2 * log(min(dx, dy))), since the gcd computation is the most significant operation in the inner loop.
-O(n^2 * log(min(dx, dy)))
-the worst-case space complexity is:
-O(n^2)
+Time Complexity: O(n² × log(min(dx, dy)))
+Breakdown:
+    1.Outer loop: Runs n times (for each point as a potential starting point)
+    2.Inner loop: For each starting point i, runs n-i-1 times, which is O(n) in the worst case
+    3.GCD calculation: For each pair of points, we calculate gcd(dx, dy) where:
+    dx = x2 - x1 and dy = y2 - y1
+    GCD using Euclidean algorithm has complexity O(log(min(a, b)))
+    So GCD complexity is O(log(min(dx, dy)))
+    Overall: O(n) × O(n) × O(log(min(dx, dy))) = O(n² × log(min(dx, dy)))
+    In practice, since coordinate differences are typically bounded, the log factor is often considered constant, making it effectively O(n²).
+
+Space Complexity: O(n²)
+Breakdown:
+    1.HashMap storage: For each starting point, we store slope keys in a HashMap
+    2.Worst case scenario: All points have different slopes when paired with a single starting point
+    3.Maximum entries: For starting point i, we can have at most n-i-1 different slopes
+    4.Total space: In the worst case, we might store O(n) slope keys per starting point
+    Overall: O(n²) in the worst case
+    Note: The space complexity could be O(n) on average if many points share the same slopes, but O(n²) represents the worst-case scenario where every pair of points has a unique slope.
+
 */
