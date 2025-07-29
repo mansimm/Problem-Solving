@@ -28,6 +28,12 @@ class Solution {
     }
 }
 /*
+Key Insights
+Position in s3 = i + j (total characters used so far)
+Two choices at each step: take from s1 or s2 (if characters match)
+Memoization prevents recalculating the same (i,j) combinations
+Time Complexity: O(m×n) instead of exponential without memoization
+
 ⏱️ Time Complexity
 Let:
 m = s1.length()
