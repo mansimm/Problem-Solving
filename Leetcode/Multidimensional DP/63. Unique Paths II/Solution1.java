@@ -15,3 +15,8 @@ class Solution1 {
     }
 }
 //Time c O(m*n) , space O(m*n)
+/*Key Points:
+Index Mapping: dp[i][j] corresponds to obstacleGrid[i-1][j-1] due to padding
+No Obstacle: If the cell is free (value 0), the number of paths equals the sum of paths from the cell above and the cell to the left
+Obstacle Present: If there's an obstacle (value 1), dp[i][j] stays 0 (no paths through obstacles)
+*/
