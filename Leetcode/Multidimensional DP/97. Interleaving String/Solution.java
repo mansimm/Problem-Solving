@@ -28,24 +28,33 @@ class Solution {
     }
 }
 /*
-✅ Time Complexity:
+⏱️ Time Complexity
 Let:
-•	m=s1.length()m=s1.length()
-•	n=s2.length()n=s2.length()
-Each unique pair (i,j)(i,j) is computed at most once and stored in dp[i][j].
-•	There are (m+1)×(n+1)(m+1)×(n+1) possible states.
-•	Each state does constant work (character comparison and up to two recursive calls).
-⏱ Time Complexity:
-O(m×n)O(m×n)
-________________________________________
-✅ Space Complexity:
-1.	DP Table:
-•	dp is a 2D array of size (m+1)×(n+1)(m+1)×(n+1)
-→ O(m×n)O(m×n)
-2.	Call Stack (Recursion Depth):
-•	In the worst case, recursion goes as deep as m+nm+n
-→ O(m+n)O(m+n)
-🧠 Total Space Complexity:
-O(m×n) (DP table)+O(m+n) (call stack)=O(m×n)O(m×n) (DP table)+O(m+n) (call stack)=O(m×n)
+m = s1.length()
+n = s2.length()
+How many states can be computed?
+Each state is uniquely defined by a pair (i, j) where:
+0 <= i <= m
+0 <= j <= n
+Thus, there are (m + 1) × (n + 1) possible states.
+Each state is computed at most once due to memoization.
 
+Work per state:
+Each state performs constant-time operations (charAt, comparisons, etc.) and up to 2 recursive calls.
+
+Therefore:
+Time Complexity: O(m * n)
+
+🧠 Space Complexity
+DP Table (dp):
+Size: (m + 1) × (n + 1)
+Space: O(m * n)
+Recursive Call Stack (in worst case):
+Depth: m + n (since each call either increases i or j)
+Space: O(m + n) (maximum depth of recursion)
+
+Therefore:
+Space Complexity: O(m * n + m + n) = O(m * n)
+
+(We generally consider DP table space as dominant.)
 */
