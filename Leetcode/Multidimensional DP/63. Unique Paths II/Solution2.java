@@ -21,3 +21,9 @@ class Solution2 {
     }
 }
 //Time complexity : O(m*n) and space : O(n)
+/*
+Understanding the DP Array Values:
+`dp[j]` (before update): Number of paths to reach position (i,j) from above (previous row)
+`dp[j-1]`: Number of paths to reach position (i,j-1) from the left (current row)
+`dp[j]` (after update): Total paths to reach position (i,j)
+*/
