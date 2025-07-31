@@ -4,7 +4,10 @@ class Solution {
         int dp[][] = new int[k+1][n];
         for(int i=1;i<=k;i++){//transactions
             for(int j=1;j<n;j++){//daywise price
-                dp[i][j]=Math.max(solver(i, j, prices, dp), dp[i][j-1]);
+                dp[i][j] = Math.max(
+            		solver(i, j, prices, dp),  // Best profit if we sell on day j
+            		dp[i][j-1]                 // Best profit if we don't sell on day j
+      		         );
             }
         }
         return dp[k][n-1];
